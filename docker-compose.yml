@@ -1,0 +1,26 @@
+version: "2.2"
+services:
+  prometheus:
+    build:
+      context: ./prometheus
+    links:
+      - app
+    ports:
+      - 9090:9090
+    command: >
+      --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus
+      --web.console.libraries=/usr/share/prometheus/console_libraries
+      --web.console.templates=/usr/share/prometheus/consoles
+      --web.enable-lifecycle
+  app:
+    build:
+      context: ./app
+    cap_add:
+      - NET_ADMIN
+    scale: 3
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    ports:
+      - 8080
+    command: go run main.go -addr=:8080
