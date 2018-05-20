@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -19,8 +18,7 @@ var (
 		Name:    "foo_seconds",
 		Help:    "Time taken to render foo",
 		Buckets: prometheus.LinearBuckets(0.3, 0.2, 10),
-	}, []string{"hostname", "code"})
-	hostname, _ = os.Hostname()
+	}, []string{"code"})
 )
 
 func init() {
@@ -32,12 +30,10 @@ func fooHandler(histogram *prometheus.HistogramVec) http.HandlerFunc {
 		start := time.Now()
 		defer r.Body.Close()
 
-		// using os.Hostname() as a label as scape config is load balanced (and
-		// as such prints app:8080 for all containers). for demo purposes
 		defer func() {
 			duration := time.Since(start)
 			log.Println(duration.Seconds())
-			histogram.WithLabelValues(hostname, fmt.Sprintf("%d", 200)).Observe(duration.Seconds())
+			histogram.WithLabelValues(fmt.Sprintf("%d", 200)).Observe(duration.Seconds())
 		}()
 
 		resp, err := http.Get("https://api.github.com/users/pemcconnell/repos")

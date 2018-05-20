@@ -4,7 +4,9 @@ services:
     build:
       context: ./prometheus
     links:
-      - app
+      - app1
+      - app2
+      - app3
     ports:
       - 9090:9090
     command: >
@@ -12,15 +14,39 @@ services:
       --web.console.libraries=/usr/share/prometheus/console_libraries
       --web.console.templates=/usr/share/prometheus/consoles
       --web.enable-lifecycle
-  app:
+  app1:
     build:
       context: ./app
     cap_add:
       - NET_ADMIN
-    scale: 3
     working_dir: /app
     volumes:
       - ./app:/app
-    ports:
-      - 8080
     command: go run main.go -addr=:8080
+  app2:
+    build:
+      context: ./app
+    cap_add:
+      - NET_ADMIN
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    command: go run main.go -addr=:8080
+  app3:
+    build:
+      context: ./app
+    cap_add:
+      - NET_ADMIN
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    command: go run main.go -addr=:8080
+  nginx:
+    build:
+      context: ./nginx
+    links:
+      - app1
+      - app2
+      - app3
+    ports:
+      - 8080:80
