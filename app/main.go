@@ -15,9 +15,9 @@ import (
 var (
 	addr      = flag.String("addr", ":8080", "The address to listen on")
 	histogram = prometheus.NewHistogramVec(prometheus.HistogramOpts{
-		Name:    "foo_seconds",
+		Name:    "foo_milliseconds",
 		Help:    "Time taken to render foo",
-		Buckets: prometheus.LinearBuckets(0.3, 0.2, 10),
+		Buckets: prometheus.LinearBuckets(200, 100, 10),
 	}, []string{"code"})
 )
 
@@ -32,11 +32,13 @@ func fooHandler(histogram *prometheus.HistogramVec) http.HandlerFunc {
 
 		defer func() {
 			duration := time.Since(start)
-			log.Println(duration.Seconds())
-			histogram.WithLabelValues(fmt.Sprintf("%d", 200)).Observe(duration.Seconds())
+			ms := duration.Seconds() * 1e3
+			ms *= 200 // fake http://fakethirdpartysite/ feeling "real"
+			log.Println(ms)
+			histogram.WithLabelValues(fmt.Sprintf("%d", 200)).Observe(ms)
 		}()
 
-		resp, err := http.Get("https://api.github.com/users/pemcconnell/repos")
+		resp, err := http.Get("http://fakethirdpartysite/")
 		if err != nil {
 			log.Fatal(err)
 		}

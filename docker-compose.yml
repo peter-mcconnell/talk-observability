@@ -22,7 +22,9 @@ services:
     working_dir: /app
     volumes:
       - ./app:/app
-    command: go run main.go -addr=:8080
+    depends_on:
+      - fakethirdpartysite
+    command: watcher -addr=:8080
   app2:
     build:
       context: ./app
@@ -31,7 +33,9 @@ services:
     working_dir: /app
     volumes:
       - ./app:/app
-    command: go run main.go -addr=:8080
+    depends_on:
+      - fakethirdpartysite
+    command: watcher -addr=:8080
   app3:
     build:
       context: ./app
@@ -40,7 +44,9 @@ services:
     working_dir: /app
     volumes:
       - ./app:/app
-    command: go run main.go -addr=:8080
+    depends_on:
+      - fakethirdpartysite
+    command: watcher -addr=:8080
   nginx:
     build:
       context: ./nginx
@@ -50,3 +56,6 @@ services:
       - app3
     ports:
       - 8080:80
+  fakethirdpartysite:
+    build:
+      context: ./fakethirdpartysite
