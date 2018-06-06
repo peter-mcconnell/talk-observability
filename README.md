@@ -43,3 +43,6 @@ The majority of code in this repo is to simply make the demonstration easier for
  - [prometheus.io](https://prometheus.io/)
  - [sre book](https://landing.google.com/sre/book/index.html)
  - [nidevconf](https://www.nidevconf.com/)
+ - [golang tour](https://tour.golang.org/welcome/4)
+ - [nginx](https://www.nginx.com/)
+ - [docker](https://www.docker.com/)
