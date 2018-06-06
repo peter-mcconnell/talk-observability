@@ -44,7 +44,7 @@ services:
   nginx:
     build:
       context: ./nginx
-    links:
+    depends_on:
       - app1
       - app2
       - app3
