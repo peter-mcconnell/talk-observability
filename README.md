@@ -1,6 +1,6 @@
 # talk-observability
 
-The content found in this repo are for a talk on observability that will be 
+The content found in this repo is for a talk on observability that will be 
 presented at nidevconf 2018. The slides for this talk can be viewed [here](https://docs.google.com/presentation/d/1RXX74v_0XeNztHIH17_YuTGFHbM5VzfoPP_lf30zyRA/edit?usp=sharing).
 
 
