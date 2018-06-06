@@ -34,7 +34,12 @@ scrape these metrics from each of the underlying docker containers
 In prometheus you will see the metrics listed as foo_seconds_bucket, 
 foo_seconds_count and foo_seconds_sum.
 
-
 ### caveats
 
 The majority of code in this repo is to simply make the demonstration easier for me (Peter McConnell) and does not serve to provide instruction for how you should go about building projects or learning about metrics. That said, feel free to take anything you feel is useful or ask questions about anything that's unclear.
+
+### useful links
+
+ - [prometheus.io](https://prometheus.io/)
+ - [sre book](https://landing.google.com/sre/book/index.html)
+ - [nidevconf](https://www.nidevconf.com/)
