@@ -22,4 +22,7 @@
 set -o nounset                              # Treat unset variables as an error
 set -e
 
-docker exec -i $(docker ps --filter "name=talk-observability_app1_" -q) sh -c "echo 'corrupting network ...'; tc qdisc add dev eth0 root netem corrupt 10%; echo 'done...'"
+docker exec -i $(docker ps --filter "name=talk-observability_app1_" -q) sh -c \
+  "echo 'corrupting network ...'; \
+  tc qdisc add dev eth0 root netem corrupt 10%; \
+  echo 'done...'"
