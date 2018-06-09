@@ -39,10 +39,10 @@ watch -n 1 curl -s http://localhost:8080/api/foo > /dev/null
 # this will curl /api/foo every second
 ```
 
-In prometheus you will see the metrics listed as foo_milliseconds_bucket, 
+In prometheus you will see the metrics listed as foo_milliseconds, 
 foo_milliseconds_count and foo_milliseconds_sum.
 
-Once the apps are running you can run `./chaos.sh` to impact network on app1. Specifically, `./chaos.sh` uses [tc](https://linux.die.net/man/8/tc) to corrupt the network device in the app1 container. The impact of this should be clear for foo_milliseconds_bucket on app1, in prometheus.
+Once the apps are running you can run `./chaos.sh` to impact network on app1. Specifically, `./chaos.sh` uses [tc](https://linux.die.net/man/8/tc) to corrupt the network device in the app1 container. The impact of this should be clear for foo_milliseconds on app1, in prometheus.
 
 You should see something similar to this pattern. Note the changing of the scale on the vertical.
 
