@@ -29,14 +29,20 @@ over 3 replica /api/foo services) at
 test
 ----
 
-The endpoint /api/foo is configured to produce some metrics, visible from the
-/metrics endpoint. By loading /api/foo several times, prometheus will start to 
-scrape these metrics from each of the underlying docker containers
+The endpoint `/api/foo` is configured to produce some metrics, visible from the
+`/metrics` endpoint. By loading `/api/foo` several times, prometheus will start to 
+scrape these metrics from each of the underlying docker containers.
+
+```shell
+# tip. install `watch` to repeat command, and run:
+watch -n 1 curl -s http://localhost:8080/api/foo > /dev/null
+# this will curl /api/foo every second
+```
 
 In prometheus you will see the metrics listed as foo_milliseconds_bucket, 
 foo_milliseconds_count and foo_milliseconds_sum.
 
-Once the apps are running you can run `./chaos.sh` to impact network on app1
+Once the apps are running you can run `./chaos.sh` to impact network on app1. Specifically, `./chaos.sh` uses [tc](https://linux.die.net/man/8/tc) to corrupt the network device in the app1 container. The impact of this should be clear for foo_milliseconds_bucket on app1, in prometheus.
 
 caveats
 -------
@@ -52,3 +58,4 @@ useful links
  - [golang tour](https://tour.golang.org/welcome/4)
  - [nginx](https://www.nginx.com/)
  - [docker](https://www.docker.com/)
+ - [tc](https://linux.die.net/man/8/tc)
