@@ -44,6 +44,14 @@ foo_milliseconds_count and foo_milliseconds_sum.
 
 Once the apps are running you can run `./chaos.sh` to impact network on app1. Specifically, `./chaos.sh` uses [tc](https://linux.die.net/man/8/tc) to corrupt the network device in the app1 container. The impact of this should be clear for foo_milliseconds_bucket on app1, in prometheus.
 
+You should see something similar to this pattern. Note the changing of the scale on the vertical.
+
+**before ./chaos.sh**
+![before ./chaos.sh](./before-chaos.png)
+
+**after ./chaos.sh**
+![after ./chaos.sh](./after-chaos.png)
+
 caveats
 -------
 
